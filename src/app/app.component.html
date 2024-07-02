@@ -1,16 +1,42 @@
 <router-outlet></router-outlet>
 <div class="w-full h-[70vh] bg-teal-200"></div>
 
-<div *ngFor="let item of items; let i=index;" class="p-4" >
+<div *ngFor="let item of items; let i=index;" class="p-4">
   <p class="py-2"><b>{{item.title}}</b></p>
   <div class="relative">
-    <div class="flex gap-4 duration-500 ease-in-out" [ngStyle]="{'transform': 'translateX(' + scrollPositions[i] + 'px)'}">
-      <div
-        class="cursor-pointer flex-shrink-0 w-48 h-24 bg-red-100 hover:scale-150 duration-200 ease-in-out shadow-md flex items-center justify-center"
-        *ngFor="let movie of item.movies">
-        {{movie}}
-      </div>
+
+    <div class="flex gap-4 duration-500 ease-in-out"
+      [ngStyle]="{'transform': 'translateX(' + scrollPositions[i] + 'px)'}">
+
+      <ng-container [ngSwitch]="item.orientation">
+        <ng-container *ngSwitchCase="'landscape'">
+          <div
+            class="cursor-pointer flex-shrink-0 w-72 h-40 bg-red-100 hover:scale-150 duration-200 ease-in-out shadow-md flex items-center justify-center"
+            *ngFor="let movie of item.movies">
+            {{movie}}
+          </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'portrait'">
+          <div
+            class="cursor-pointer flex-shrink-0 flex-grow h-64 w-48 bg-red-100 hover:scale-150 duration-200 ease-in-out shadow-md flex items-center justify-center"
+            *ngFor="let movie of item.movies">
+            {{movie}}
+          </div>
+        </ng-container>
+
+        <ng-container *ngSwitchDefault>
+          <div
+            class="cursor-pointer flex-shrink-0 w-48 h-48 bg-red-100 hover:scale-150 duration-200 ease-in-out shadow-md flex items-center justify-center"
+            *ngFor="let movie of item.movies">
+            {{movie}}
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
+
+
+
 
     <div class="h-full flex items-center px-4 absolute top-0">
       <button (click)="prev(i)">Prev</button>
